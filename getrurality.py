@@ -11,5 +11,4 @@ if (__name__=="__main__"):
     for index, row in df.iterrows():
         if row["COMMUNE"] in hashtable:
             df.loc[index,'Rural']=int(hashtable[row["COMMUNE"]])
-    print(df["Rural"])
-    df.to_csv("datacleaned/datawithrural.csv")
+    df.to_csv("data cleaned/datawithrural.csv")

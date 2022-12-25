@@ -8,8 +8,12 @@ import matplotlib.pyplot as plt
 
 
 
-
-def cleanforafc(df):
+## Créer un dataframe de la forme 
+##      Femme   Homme 
+## Math  
+## Art
+## ...
+def makedf(df):
     for column in df:
             if("filles" not in df[column].name and "garcons" not in df[column].name):
                 df.pop(column)
@@ -32,17 +36,11 @@ def cleanforafc(df):
             else:
                 homme=val+homme
                 indexname=df[column].name.split("garcons")
-
-
-       
-       
         if(isfille):
-
             FemmeColumn.append(femme)
             if(indexname[0] not in indexes):
                     indexes.append(indexname[0])
         else:
-
             HommeColumn.append(homme)
             if(indexname[0] not in indexes):
                 indexes.append(indexname[0])
@@ -58,6 +56,7 @@ def cleanforafc(df):
 def chi2(df):
     chi2, p, dof, expected = chi2_contingency(df.values)
     print(chi2)
+
     alpha=0.05
     print(p)
     if p < alpha:
@@ -109,17 +108,11 @@ def afc(df):
     
 
 
-#df=pd.read_csv("data vrac/effectifs-dans-les-enseignements-de-specialites-en-1ere-generale-national.csv",sep=";")
-
-
-
-
-
-df=pd.read_csv("datacleaned/datawithrural.csv",sep=",")
+df=pd.read_csv("data cleaned/datawithrural.csv",sep=",")
 
 
 #df=df[df["Rural"]==i]
-df=cleanforafc(df)
+df=make(df)
 
 chi2(df)
 
