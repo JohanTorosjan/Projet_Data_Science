@@ -71,34 +71,22 @@ class afc():
             plt.annotate(txt, (x[u], y[u]))
         # Ajout d'étiquettes aux axes
         valpropres=pca.explained_variance_
-        print("Pour niveau de ruralité ="+str(i)+",")
-        print("Val propre 1: "+str(valpropres[0])+",")
-        print("Val propre 2: "+str(valpropres[1]))
         cp1=pca.explained_variance_ratio_[0]*100
-        cp2=pca.explained_variance_ratio_[1]*100
+        cp2=pca.explained_variance_ratio_[1]*100 
+        v1, v2 = pca.components_
         plt.xlabel('Composante 1('+str(cp1)+")%")
         plt.ylabel('Composante 2 ('+str(cp2)+")%")
         plt.title('Nuage des matières,niveau de ruralité = '+str(i))
         plt.axvline(x=0, color='blue')
         plt.axhline(y=0, color='blue')
+        plt.plot(v1[0],v1[1],'X', color='red')
+        plt.text(v1[0],v1[1],'Femme',color="red")
+        plt.plot(v2[0],v2[1],'X', color='red')
+        plt.text(v2[0],v2[1],'Homme',color="red")
         # Affichage du graphe
         plt.savefig("graph out/Nuage des matières,niveau de ruralité = "+str(i)+".jpg")
         plt.close()
-        v1, v2 = pca.components_
-        # Tracé des axes du nouveau plan factoriel
-        plt.arrow(0, 0, v1[0], v1[1], head_width=0.01, head_length=0.01, color='red')
-        plt.arrow(0, 0, v2[0], v2[1], head_width=0.01, head_length=0.01, color='red')
-        plt.text(v1[0], v1[1], 'Femme', color='red', fontsize=12)
-        plt.text(v2[0], v2[1], 'Homme', color='red', fontsize=12)
-        plt.axvline(x=0, color='blue')
-        plt.axhline(y=0, color='blue')
-        plt.xlabel('Composante 1('+str(cp1)+")%")
-        plt.ylabel('Composante 2 ('+str(cp2)+")%")
-        plt.title("Nuage des variables,niveau de ruralité = "+str(i))
-        # Affichage du graphe
-        plt.savefig("graph out/Nuage des variable,niveau de ruralité = "+str(i)+".jpg")
-        plt.close()
-
+       
     def launch():
         for i in range(1,5):
             df=pd.read_csv("data cleaned/datawithrural.csv",sep=",")

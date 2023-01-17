@@ -14,7 +14,6 @@ class ki2:
         Y=[]
         n=0
         for column in df:
-            isfille="filles" in df[column].name
             for i in range(0,len(df.index)):
                 if(np.isnan(df[column].values[i])):
                     occ=0
