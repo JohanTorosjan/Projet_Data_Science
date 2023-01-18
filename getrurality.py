@@ -20,8 +20,9 @@ class getrurality:
         df["Rural"]=0
         print(hashtable)
         for index, row in df.iterrows():
-            if row["COMMUNE"] in hashtable:
-                df.loc[index,'Rural']=int(indiceRuralite[hashtable[row["COMMUNE"]]])
+            if row["COMMUNE"] in DFdensite:
+                df.loc[index,'Rural']=int(indiceRuralite[DFdensite.loc[row["COMMUNE"], 'Libellé typologie']])
+                #df.loc[index,'Rural']=int(indiceRuralite[hashtable[row["COMMUNE"]]])
                 #df.loc[index,'Rural']=int(hashtable[row["COMMUNE"]])
             #else:
                 #print(row["COMMUNE"])
