@@ -173,7 +173,7 @@ def makeContin(df):
 
 
     dc=pd.DataFrame(pd.get_dummies(dfnew[['Faible','Assez faible','Moyen','Assez élevé','Elevé']]))
-
+    
     print(dfnew)
     print("-----")
     print(dc)
@@ -221,72 +221,8 @@ def makeContin(df):
     plt.show()
     
 
-
-
-#     dc.head()
-#     print(dc)
-#     mca_df=MCA(dc,benzecri=False)
-# # Valeurs singulières
-#     print(mca_df.L)
-# # Composantes principales des colonnes (modalités) print(mca_df.fs_c())
-# # Premier plan principal
-#     col=[1,1,2,2,2,3,3,5,5,5,6,6,6,7,7,7]
-#     print(mca_df.fs_c())
-#     plt.scatter(mca_df.fs_c()[:, 0],mca_df.fs_c()[:, 1],c=col)
-#     for i,j,nom in zip(mca_df.fs_c()[:,0],mca_df.fs_c()[:,1],dc.columns):
-#         plt.text(i,j,nom)
-#     plt.show()
-#     #   Valeurs singulières
-
-#     # scaler = StandardScaler()
-        
-#     # X_scaled = scaler.fit_transform(dfnew)
-#     # pca = PCA()
-    #     # Appliquer l'afc aux données normalisées
-    # X_pca = pca.fit_transform(X_scaled)
-    #     # Récupération des coordonnées des points dans le nouveau plan factoriel
-    # x, y = X_pca[:, 0], X_pca[:, 1]
-
-
-
-    # for u, txt in enumerate(dfnew.index):
-    #         plt.annotate(txt, (x[u], y[u]))
-    
-    # print(x)
-    # print(y)
-    # v1,v2,v3,v4,v5= pca.components_
-    # print(v1)
-    # print(v2)
-    # print(v3)
-    # print(v4)
-    # print(v5)
-    
-        # Création du scatter plot
-    # plt.scatter(x, y)
-    # plt.plot(v1[0],v1[1])
-    # plt.annotate("Faible",(v1[0],v1[1]))
-    # plt.plot(v2[0],v2[1])
-    # plt.annotate("Assez Faible",(v2[0],v2[1]))
-    # plt.plot(v3[0],v3[1])
-    # plt.annotate("Moyen",(v3[0],v3[1]))
-    # plt.plot(v4[0],v4[1])
-    # plt.annotate("Assez élevé",(v4[0],v4[1]))
-    # plt.plot(v5[0],v5[1])
-    # plt.annotate("Elevé",(v5[0],v5[1]))
-
-    #plt.show()
-
-
 df=normalizeIPS(df)
 df=normalizeTP(df)
 df=normalizeRurality(df)
 df.to_csv("data cleaned/datawithall.csv")
 makeContin(df)
-# # df=df[df["TauxParite"]>20]
-# # print(len(df))
-# # df=df[df["IPS"]<100]
-# # print(len(df))
-# print(np.percentile(df["TauxParite"],50))
-# print(len(df))
-# df=df[df["IPS"]<100]
-# print(len(df))
