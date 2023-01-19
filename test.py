@@ -75,6 +75,16 @@ def normalizeTP(df):
             df.loc[index,'TauxParite']="Eleve"
     return df
 
+def normalizeRurality(df):
+    DFdensite=pd.read_csv("data vrac/data sorted/grille_densite_2021.csv",sep=",",index_col="NomCommune")
+    indiceRuralite = {"Communes très peu denses": 4, "Communes peu denses": 3, "Communes de densité intermédiaire" : 2, "Communes densément peuplées" : 1}
+    hashtable = DFdensite.to_dict(orient='dict')['Libellé typologie']
+    df["Rural"]=0
+    for index, row in df.iterrows():
+        if row["COMMUNE"] in hashtable:
+            df.loc[index,'Rural']=int(indiceRuralite[hashtable[row["COMMUNE"]]])
+    return df
+
 
 #Creer un dataframe de la forme 
 #  /   IPS      faible  assez faible ...
@@ -269,6 +279,7 @@ def makeContin(df):
 
 df=normalizeIPS(df)
 df=normalizeTP(df)
+df=normalizeRurality(df)
 df.to_csv("data cleaned/datawithall.csv")
 makeContin(df)
 # # df=df[df["TauxParite"]>20]
