@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.decomposition import FactorAnalysis
 import matplotlib.pyplot as plt
-
+import prince as pr
 
 class afc():
 
@@ -55,16 +55,27 @@ class afc():
         return dfnew
 
 
+
     def afc(df,i):
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(df)
-        pca = PCA()
+        pca = pr.MCA(n_components=2)
         # Appliquer l'afc aux données normalisées
         X_pca = pca.fit_transform(X_scaled)
         # Récupération des coordonnées des points dans le nouveau plan factoriel
+        print(X_pca)
         x, y = X_pca[:, 0], X_pca[:, 1]
         # Création du scatter plot
         plt.scatter(x, y)
+        print("--")
+        print(x)
+        print("------")
+        print(y)
+        print("--")
+
+
+
+
         for u, txt in enumerate(df.index):
             part=txt.split("-")
             txt=" ".join(part[1:])
@@ -79,6 +90,7 @@ class afc():
         plt.title('Nuage des matières,niveau de ruralité = '+str(i))
         plt.axvline(x=0, color='blue')
         plt.axhline(y=0, color='blue')
+
         plt.plot(v1[0],v1[1],'X', color='red')
         plt.text(v1[0],v1[1],'Femme',color="red")
         plt.plot(v2[0],v2[1],'X', color='red')
@@ -88,11 +100,9 @@ class afc():
         plt.close()
        
     def launch():
+
         for i in range(1,5):
             df=pd.read_csv("data cleaned/datawithrural.csv",sep=",")
             df=afc.makedf(df,i)
             afc.afc(df,i)
-
-
-
 
