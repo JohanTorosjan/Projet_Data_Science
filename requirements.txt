@@ -5,7 +5,6 @@ gunicorn
 prince
 sklearn
 numpy
-contingence
 scipy
 plotly
 matplotlib
