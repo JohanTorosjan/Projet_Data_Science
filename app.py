@@ -117,11 +117,16 @@ app.layout = html.Div(children=[
 
     html.Div(children=[
         html.H2(children="4. Solutions envisageables"),
-        html.P(children=SOLUTIONS)
+        html.P(children=SOLUTIONS),
+        html.P(children=SOL1),
+        html.P(children=SOL2),
+        html.P(children=SOL3),
+        html.P(children=SOL4),
+        html.P(children=SOL5),
     ]),
 
     html.Footer(children=[
-        html.Div("Etude réalisée par CROS Guilhem, HERMET Robin, TILLIER Etienne?, TOROSJAN Johan"),
+        html.Div("Etude réalisée par CROS Guilhem, HERMET Robin, TILLIER Etienne, TOROSJAN Johan"),
         html.Div("Projet Data Science Polytech Montpellier 2022/2023")
     ]),
 ])
