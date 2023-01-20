@@ -11,7 +11,6 @@ from constants import *
 app = Dash(__name__)
 server = app.server
 
-
 def showAfc(paramAfc1,paramAfc2):
     x1,y1 = afc.getCoordA(paramAfc1,paramAfc2)
     x2,y2 = afc.getCoordB(paramAfc1,paramAfc2)
@@ -21,29 +20,35 @@ def showAfc(paramAfc1,paramAfc2):
     inertie1,inertie2 = afc.get_inertia(paramAfc1,paramAfc2)
     xlabel="Composante 1("+str(inertie1)+")%"
     ylabel="Composante 2 ("+str(inertie2)+")%"
-    #Première comoposante
-    fig = px.scatter(x=x1,y=y1, labels={
-                    "x": xlabel,
-                    "y": ylabel,
-                },hover_name=dataFrame.index)  
-    #Deuxième composante
-    fig.add_scatter(x=x2,y=y2,hovertext=dataFrame.columns.values,mode="markers")    
+    fig = px.scatter(labels={
+                        "x": xlabel,
+                        "y": ylabel,
+                    })
+    if paramAfc2=="Orientation" :
+        #Première comoposante
+        fig.add_scatter(x=x1,y=y1,hovertext=dataFrame.index, mode="markers+text", name="Spécialisation")
+        #Deuxième composante
+        fig.add_scatter(x=x2,y=y2,text=dataFrame.columns.values, name="Sexe", mode="markers+text") 
+    else:
+        #Première comoposante
+        fig.add_scatter(x=x1,y=y1,text=dataFrame.index, mode="markers+text", name=paramAfc2)
+        #Deuxième composante
+        fig.add_scatter(x=x2,y=y2,text=dataFrame.columns.values, mode="markers+text", name=paramAfc1)
     title='Nuage des '+paramAfc1+' et des '+paramAfc2
     fig.update_layout(title_text=title)
+    fig.update_traces(textposition="top right")
     return fig
 
 def showEcartInertieRuralite():
     x,y=ki2.getCoordInertie()
-    fig = px.scatter(x=y,y=x, labels={
+    fig = px.line(x=y,y=x, labels={
                     "x": "Taux de ruralité",
                     "y": "Ecart à l'inertie",
-                })
+                }, markers=True)
     title="Ecart à l'indépendance selon le taux de ruralité"
     fig.update_layout(title_text=title)
     return fig
 
-
-#fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 app.layout = html.Div(children=[
     html.H1(children="Etude des disparités entre genres dans l'orientation scolaire"),
@@ -124,11 +129,14 @@ app.layout = html.Div(children=[
         html.P(children=SOL3),
         html.P(children=SOL4),
         html.P(children=SOL5),
+        html.P("Certaines de ces solutions ou d'autres ayant le même objectif ont déjà pu être mises "+
+        "en place et on observe aujourd'hui une amélioration entre ces disparités. Il semble alors possible de continuer dans cette direction "+
+        "en essayant de réduire au maximum les inégalités entre genres."),
     ]),
 
-    html.Footer(children=[
+    html.Footer(id="footer",children=[
         html.Div("Etude réalisée par CROS Guilhem, HERMET Robin, TILLIER Etienne, TOROSJAN Johan"),
-        html.Div("Projet Data Science Polytech Montpellier 2022/2023")
+        html.Div("Projet Data Science - Polytech Montpellier - 2022/2023")
     ]),
 ])
 
