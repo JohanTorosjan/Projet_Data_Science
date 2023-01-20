@@ -3,6 +3,12 @@ import numpy as np
 from contingence import *
 import scipy.stats as st
 
+
+
+
+
+
+
 def GetInertie(df):
     for column in df:
             if("filles" not in df[column].name and "garcons" not in df[column].name):
@@ -44,18 +50,14 @@ def getKi2fromCont(df):
     return st_chi2
 
 
-def getPvaluefromCont(df):
-    st_chi2, st_p, st_dof, st_exp = st.chi2_contingency(df)
-    return st_p
-
-
 class ki2:
     def getCoordInertie():
         Y=[]
         X=[]    
         for i in range(1,5):
 
-            df=pd.read_csv("dataWarehouse/datas.csv",sep=",")
+            ### TODO ###
+            df=pd.read_csv("data cleaned/datawithrural.csv",sep=",")
 
             df=df[df["Rural"]==i]
             Y.append(i)
@@ -67,8 +69,4 @@ class ki2:
         df=pd.read_csv("dataWarehouse/datas.csv",sep=",")  
         dfContigence=contingence.getContigence(df,var1,var2)
         return getKi2fromCont(dfContigence)
-    
-    def getPvalue(var1,var2):
-        df=pd.read_csv("dataWarehouse/datas.csv",sep=",")  
-        dfContigence=contingence.getContigence(df,var1,var2)
-        return getPvaluefromCont(dfContigence)
+

@@ -56,11 +56,9 @@ def makeContinIPSTP(df):
     moyenIPS=[0,0,0,0,0]
     assezeleveIPS=[0,0,0,0,0]
     eleveIPS=[0,0,0,0,0]
-   
     for index,row in df.iterrows():
         if(row["IPS"]=="Faible"):
             if(row["TauxParite"]=="Faible"):
-              
                 faibleIPS[0]=faibleIPS[0]+1
             if(row["TauxParite"]=="Assez faible"):
                 faibleIPS[1]=faibleIPS[1]+1
@@ -123,81 +121,41 @@ def makeContinIPSTP(df):
     dfnew = pd.DataFrame(list(zip(faibleIPS,assezfaibleIPS,moyenIPS,assezeleveIPS,eleveIPS)),columns=column_values,index=column_values)
     return dfnew
 
+# def makeContinSexeOrientation(df):
+
+#     for column in df:
+#             if("filles" not in df[column].name and "garcons" not in df[column].name):
+#                 df.pop(column)
+#     X=[]
+#     Y=[]
+#     n=0
 
 
-#Creer un dataframe de la forme 
-#  /   Ruralité 1       2 ...
-#TauxP
-#-----------------------------------------
-#faible         X       X       
-#assez faible   X       X
-#...
-def makeContinRuralTP(df):
-    Indice_1=[0,0,0,0,0]
-    Indice_2=[0,0,0,0,0]
-    Indice_3=[0,0,0,0,0]
-    Indice_4=[0,0,0,0,0]
-
-    for index,row in df.iterrows():
-
-       
-
-
-
-        if(row["Rural"]==1):
-            if(row["TauxParite"]=="Faible"):
-                Indice_1[0]=Indice_1[0]+1
-            if(row["TauxParite"]=="Assez faible"):
-                Indice_1[1]=Indice_1[1]+1   
-            if(row["TauxParite"]=="Moyen"):
-                Indice_1[2]=Indice_1[2]+1
-            if(row["TauxParite"]=="Assez elevé"):
-                Indice_1[3]=Indice_1[3]+1
-            if(row["TauxParite"]=="Eleve"):
-                Indice_1[4]=Indice_1[4]+1
-        
-        if(row["Rural"]==2):
-            
-            if(row["TauxParite"]=="Faible"):
-                Indice_2[0]=Indice_2[0]+1
-            if(row["TauxParite"]=="Assez faible"):
-                Indice_2[1]=Indice_2[1]+1
-            if(row["TauxParite"]=="Moyen"):
-                Indice_2[2]=Indice_2[2]+1
-            if(row["TauxParite"]=="Assez elevé"):
-                Indice_2[3]=Indice_2[3]+1
-            if(row["TauxParite"]=="Eleve"):
-                Indice_2[4]=Indice_2[4]+1
+#     for column in df:
+#         for i in range(0,len(df.index)):
+#             if(np.isnan(df[column].values[i])):
+#                 occ=0
+#             else:
+#                 occ=int(df[column].values[i])
+#             if "filles" in df[column].name:
+#                 fil=df[column].name.split("filles")
+#                 name=fil[0]
+#                 X.extend(["F"]*occ)
+#                 Y.extend([name]*occ)     
+#             elif "garcons" in df[column].name:
+#                 fil=df[column].name.split("garcons")
+#                 name=fil[0]
+#                 X.extend(["H"]*occ)
+#                 Y.extend([name]*occ)
+#             n+=occ
+#     data = {
+#         'Sexe':X,
+#         'Choix':Y
+#     }
+#     df = pd.DataFrame(data)
+#     return df
 
 
-        if(row["Rural"]==3):
-            if(row["TauxParite"]=="Faible"):
-                Indice_3[0]=Indice_3[0]+1
-            if(row["TauxParite"]=="Assez faible"):
-                Indice_3[1]=Indice_3[1]+1
-            if(row["TauxParite"]=="Moyen"):
-                Indice_3[2]=Indice_3[2]+1
-            if(row["TauxParite"]=="Assez elevé"):
-                Indice_3[3]=Indice_3[3]+1
-            if(row["TauxParite"]=="Eleve"):
-                Indice_3[4]=Indice_3[4]+1
-        
-        if(row["Rural"]==4):
-            if(row["TauxParite"]=="Faible"):
-                Indice_4[0]=Indice_4[0]+1
-            if(row["TauxParite"]=="Assez faible"):
-                Indice_4[1]=Indice_4[1]+1
-            if(row["TauxParite"]=="Moyen"):
-                Indice_4[2]=Indice_4[2]+1
-            if(row["TauxParite"]=="Assez elevé"):
-                Indice_4[3]=Indice_4[3]+1
-            if(row["TauxParite"]=="Eleve"):
-                Indice_4[4]=Indice_4[4]+1
-        
-    column_values=['Communes densément peuplées','Communes de densité intermédiaire','Communes peu denses','Communes très peu denses']
-    index=['Faible','Assez faible','Moyen','Assez élevé','Elevé']
-    dfnew = pd.DataFrame(list(zip(Indice_1,Indice_2,Indice_3,Indice_4)),columns=column_values,index=index)
-    return dfnew
 
 class contingence:
 
@@ -207,8 +165,6 @@ class contingence:
             return makeContinSexeOrientation(df,0,False)
         if(var1=="IPS" and var2=="TP"):
             return makeContinIPSTP(df)
-        if(var1=="Ruralite" and var2=="TP"):
-            return makeContinRuralTP(df)
         return None
     def getContigenceWithRurality(df,i):
         return makeContinSexeOrientation(df,i,True)
