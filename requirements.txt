@@ -1,4 +1,4 @@
-﻿dash==2.6.0
+dash
 matplotlib
 numpy
 pandas
