@@ -4,7 +4,7 @@ pandasql
 gunicorn
 prince
 sklearn
-numpy
 scipy
 plotly
 matplotlib
+numpy
