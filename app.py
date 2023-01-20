@@ -25,7 +25,7 @@ def showAfc(paramAfc1,paramAfc2):
                     "y": ylabel,
                 },hover_name=dataFrame.index)  
     #Deuxième composante
-    fig.add_scatter(x=x2,y=y2,hovertext=dataFrame.columns.values)     
+    fig=fig.add_scatter(x=x2,y=y2,hovertext=dataFrame.columns.values)     
     title='Nuage des '+paramAfc1+'et des'+paramAfc2
     fig.update_layout(title_text=title)
     return fig
@@ -48,7 +48,7 @@ app.layout = html.Div(children=[
 
     html.Div(children=[
         html.H2(children="Présentation de l'étude"),
-        html.P(children="Présentation de l'étude blablabla...")
+        html.P(children="Présentation de l'étude blablabla...") ##### 01 #####
     ]),
 
     html.Div(children=[
@@ -97,7 +97,7 @@ app.layout = html.Div(children=[
     ]),
 
     html.Footer(children=[
-        html.Div("Etude réalisée par CROS Guilhem, HERMET Robin, TILLIER Etienne?, TOROSJAN Johan"),
+        html.Div("Etude réalisée par CROS Guilhem, HERMET Robin, TILLIER Etienne, TOROSJAN Johan"),
         html.Div("Projet Data Science Polytech Montpellier 2022/2023")
     ]),
 ])
